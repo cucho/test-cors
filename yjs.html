@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SVG Size Fetcher</title>
+</head>
+<body>
+  <h1>Hacker News SVG Size</h1>
+  <p id="svgSize">Loading...</p>
+
+  <script>
+    async function fetchSVGSize() {
+      try {
+        const response = await fetch('https://news.ycombinator.com/y18.svg');
+        const data = await response.text();
+        const sizeInBytes = new TextEncoder().encode(data).length;
+
+        document.getElementById('svgSize').textContent = `Size: ${sizeInBytes} bytes`;
+      } catch (error) {
+        document.getElementById('svgSize').textContent = 'Failed to load SVG.';
+        console.error('Error fetching SVG:', error);
+      }
+    }
+
+    fetchSVGSize();
+  </script>
+</body>
+</html>
